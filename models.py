@@ -320,6 +320,11 @@ def rotate_block_90_cw(pytromino, pos):
     >>> rotate_block_90_cw(test_pytro_T, (0, 1))
     (-1, 0)
     """
+    # Hint:
+        # The new x value is: center_rot.y - pos.y + center_rot.x
+        # The new y value is: pos.x - center_rot.x + center_rot.y
+        # You need to translate the above equations to code and
+        # return the right solution.
     # BEGIN QUESTION 4
     """TODO: your solution here"""
     # END QUESTION 4
