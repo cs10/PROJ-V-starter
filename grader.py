@@ -4,7 +4,7 @@ try:
     from models import Holder
     from models import *
     from board import *
-    from colors import Color
+
 except ImportError as err:
     print(err)
     exit(1)

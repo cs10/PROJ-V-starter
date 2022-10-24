@@ -300,7 +300,8 @@ def validated_apply_rot(pytromino, fn, validator):
 # Q4: rotate_block_90_cw
 def rotate_block_90_cw(pytromino, pos):
     """
-    Returns the position of the center of the Pytromino after rotating 90 degree clockwise.
+    Returns the new position after rotating pos 90 degree clockwise, using
+    the pytromino's center_rot as the center of rotation.
 
     Parameters
     -------
@@ -313,7 +314,7 @@ def rotate_block_90_cw(pytromino, pos):
     Returns
     -------
         type: tuple(int, int)
-        brief: the position of the center of the pytromino after rotation
+        brief: the new position after rotating pos 90 degree clockwise
 
     >>> rotate_block_90_cw(test_pytro_T, (-1, 0))
     (0, -1)
