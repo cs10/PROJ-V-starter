@@ -445,10 +445,6 @@ def validated_apply_non_rot(pytromino, fn, validator):
         type: Function, tuple(int, int) -> tuple(int, int)
         brief: a function that takes in a tuple of 2 int, then does some
         transformation, and return a new tuple of 2 int.
-    is_rotation:
-        type: bool
-        brief: If fn is a rotational transfermation, self.center_rot will not
-        be applied with fn
     validator:
         type: Function, tuple[int, int] -> bool:
         brief:  function that takes in the result of fn, a tuple of 2 int,
@@ -457,7 +453,7 @@ def validated_apply_non_rot(pytromino, fn, validator):
     Returns
     -------
         type: Pytromino object
-        brief: the updated Pytromino object, or None if the validator is invalid 
+        brief: the updated Pytromino object, or a copy of the original pytromino object if the validator is invalid 
 
     >>> T = Pytromino([(0, 0), (0, -1), (-1, 0), (1, 0)], Color.PURPLE.value, Pytromino.Types.T, 1) 
     >>> T # Checkout the __repr__(self) below if you're curious
@@ -479,7 +475,6 @@ def validated_apply_non_rot(pytromino, fn, validator):
     """TODO: your solution here"""
     # END QUESTION 8
     return new_pytro
-    
 
 # OBJECT FOR AUTOGRADER
 # ------------- IMPORTANT: don't edit below this line! ---------------
