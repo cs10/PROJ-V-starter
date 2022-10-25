@@ -510,7 +510,7 @@ def display_main_menu():
     deactivate_all_keys()
     tp.clear()
     tp.goto((0, 200))
-    tp.write('Welcome to CS10 PROJ-V Pytris!', move=False, align='center', font=("Cambria", font_size + 3, "bold"))
+    tp.write('Welcome to CS10 PROJ-V Pyturis!', move=False, align='center', font=("Cambria", font_size + 3, "bold"))
     tp.goto((0, 50))
     tp.write('Press (s) to start.', move=False, align='center', font=("Cambria", font_size, "normal"))
     tp.goto((0, 0))
