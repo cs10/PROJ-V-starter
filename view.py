@@ -1,3 +1,4 @@
+from multiprocessing import parent_process
 import turtle
 import time
 import random
@@ -109,16 +110,19 @@ def render_board(board, tp):
     """
     Renders the board with all the blocks. 
     """
-    tp.clear()
-    for x in range(board.get_num_cols()):
-        for y in range(board.get_num_rows() - 2):
-            pos_x, pos_y = add_pos(init_pos, mul_pos((x, y), 20))
-            pos_item = get_board_item_safe(board, x, y)
-            # if pos_item:
-            pos_color = colors[pos_item]
-            tp.color(pos_color)
-            tp.goto(pos_x, pos_y)
-            tp.stamp()
+    try: 
+        tp.clear()
+        for x in range(board.get_num_cols()):
+            for y in range(board.get_num_rows() - 2):
+                pos_x, pos_y = add_pos(init_pos, mul_pos((x, y), 20))
+                pos_item = get_board_item_safe(board, x, y)
+                # if pos_item:
+                pos_color = colors[pos_item]
+                tp.color(pos_color)
+                tp.goto(pos_x, pos_y)
+                tp.stamp()
+    except Exception as err:
+        pass
 
 def render_pytro(pytro, tp, pytro_pos, checker, renderer):
     """
@@ -136,7 +140,10 @@ def render_pytro_in(pytro, tp, pytro_pos):
     """
     Render a pytro inside the board. 
     """
-    render_pytro(pytro, tp, pytro_pos, lambda i: pytro_pos[1] + i[1] < 20, tp.stamp)
+    try: 
+        render_pytro(pytro, tp, pytro_pos, lambda i: pytro_pos[1] + i[1] < 20, tp.stamp)
+    except Exception as er:
+        pass
 
 def render_pytro_out(pytro, tp, pytro_pos):
     """
@@ -183,17 +190,20 @@ def check_all_rows(board):
     """
     Checks for and removes any full row from board.
     """
-    full_rows_idx = [i for i in range(board.get_num_rows()) if check_row_full(board, i)]
-    counter = 0
-    global score
-    full_rows_total = len(full_rows_idx)
-    if 0 < full_rows_total < 4:
-        score += (full_rows_total * 2 - 1) * 100
-    elif full_rows_total >= 4:
-        score += 800
-    for i in full_rows_idx:
-        pop_row(board, i - counter)
-        counter += 1
+    try: 
+        full_rows_idx = [i for i in range(board.get_num_rows()) if check_row_full(board, i)]
+        counter = 0
+        global score
+        full_rows_total = len(full_rows_idx)
+        if 0 < full_rows_total < 4:
+            score += (full_rows_total * 2 - 1) * 100
+        elif full_rows_total >= 4:
+            score += 800
+        for i in full_rows_idx:
+            pop_row(board, i - counter)
+            counter += 1
+    except Exception as err:
+        pass
 
 # helper functions
 def check_all_pos(checker, pytro, pytro_pos):
@@ -305,59 +315,66 @@ def rocket():
 
 def check_over(board, pytro, pytro_pos):
     global gameover
-    for i in pytro.blocks_pos:
-        if pytro_pos[1] + i[1] >= board.get_num_rows() - 2:
-            gameover = not can_drop(pytro, board, 1)
-
-def play_game():    
-    deactivate_all_keys()
-    global board, gameover, delay_cpy, holder, score
-    board = Board(cell_item=0)
-    holder = Holder()
-    score = 0
-    gameover = False
-    ws.listen()
-    ws.onkeypress(lambda: validated_apply_safe("Left"), "Left")
-    ws.onkeypress(lambda: validated_apply_safe("Right"), "Right")
-    ws.onkeypress(lambda: validated_apply_safe("Up"), "Up")
-    ws.onkeypress(lambda: validated_apply_safe("z"), "z")
-    ws.onkeypress(lambda: validated_apply_safe("Down"), "Down")
-    ws.onkeypress(lambda: hold(), "c")
-    ws.onkeypress(lambda: rocket(), "space")
-    delay_cpy = delay
-    
-    while not gameover:
-        ws.update()
-
-        # check for the bottom
-        global pytro_pos
+    try: 
         for i in pytro.blocks_pos:
-            pos_y = pytro_pos[1] + i[1]
-            # if hit bottom
-            if pos_y == 0:
+            if pytro_pos[1] + i[1] >= board.get_num_rows() - 2:
+                gameover = not can_drop(pytro, board, 1)
+    except Exception as err:
+        pass
+
+def play_game():
+    try:    
+        deactivate_all_keys()
+        global board, gameover, delay_cpy, holder, score
+        board = Board(cell_item=0)
+        holder = Holder()
+        score = 0
+        gameover = False
+        ws.listen()
+        ws.onkeypress(lambda: validated_apply_safe("Left"), "Left")
+        ws.onkeypress(lambda: validated_apply_safe("Right"), "Right")
+        ws.onkeypress(lambda: validated_apply_safe("Up"), "Up")
+        ws.onkeypress(lambda: validated_apply_safe("z"), "z")
+        ws.onkeypress(lambda: validated_apply_safe("Down"), "Down")
+        ws.onkeypress(lambda: hold(), "c")
+        ws.onkeypress(lambda: rocket(), "space")
+        ws.onkeypress(lambda: quit_game(), "q")
+        delay_cpy = delay
+    
+        while not gameover:
+            ws.update()
+
+            # check for the bottom
+            global pytro_pos
+            for i in pytro.blocks_pos:
+                pos_y = pytro_pos[1] + i[1]
+                # if hit bottom
+                if pos_y == 0:
+                    endpyt()
+
+            # check if the pytro can drop by one grid
+            if can_drop(pytro, board, 1):
+                pytro_pos = (pytro_pos[0], pytro_pos[1] - 1)
+                render_pytro_in(pytro, tp, pytro_pos)
+            else:
                 endpyt()
 
-        # check if the pytro can drop by one grid
-        if can_drop(pytro, board, 1):
-            pytro_pos = (pytro_pos[0], pytro_pos[1] - 1)
+            render_board(board, tp)
+            if holder.get_item():
+                render_holder(tp, holder)
+            render_next(tp, pytro_next)
             render_pytro_in(pytro, tp, pytro_pos)
-        else:
-            endpyt()
+            ghost_pos = find_ghost_pos(board, pytro)
+            render_ghost(pytro, tp, ghost_pos)
+            render_score(tp, score)
 
-        render_board(board, tp)
-        if holder.get_item():
-            render_holder(tp, holder)
-        render_next(tp, pytro_next)
-        render_pytro_in(pytro, tp, pytro_pos)
-        ghost_pos = find_ghost_pos(board, pytro)
-        render_ghost(pytro, tp, ghost_pos)
-        render_score(tp, score)
+            time.sleep(delay_cpy)
 
-        time.sleep(delay_cpy)
-
-        check_over(board, pytro, pytro_pos)
-    ws.update()
-    game_over()
+            check_over(board, pytro, pytro_pos)
+        ws.update()
+        game_over()
+    except Exception as er:
+        pass
 
 def game_over():
     deactivate_all_keys()
@@ -472,7 +489,10 @@ def return_main_from_d():
     display_main_menu()
 
 def quit_game():
-    ws.bye()
+    try: 
+        ws.bye()
+    except Exception as err:
+        pass
 
 def deactivate_keys(keys, focus='turtle'):
     if focus == 'turtle':

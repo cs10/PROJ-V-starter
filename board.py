@@ -212,7 +212,6 @@ def valid_coordinate(board, coordinate):
     """TODO: your solution here"""
     # END QUESTION 3
 
-# Below are tentative/optional questions
 def get_row(board, y):
     """
     Get a row of items at row y.
@@ -237,13 +236,9 @@ def get_row(board, y):
     [2, 4]
     """
     assert 0 <= y < board.num_rows, f'Invalid y: {y}'
-    # DO NOT modify above this comment line
-    # BEGIN ALT 1
-    """TODO: your solution here"""
-    # END ALT 1
+    start_index = y * board.num_cols
+    return board.grid[start_index : start_index + board.num_cols]
 
-# alt2: checking if a row, specified by y, is full
-# dan likes this one 
 def check_row_full(board, y):
     """
     Check if a row is full, such that it all of its grids contain a non-zero value.
@@ -268,9 +263,8 @@ def check_row_full(board, y):
     >>> check_row_full(board, 1)
     True
     """
-    # BEGIN ALT 2
-    """TODO: your solution here"""
-    # END ALT 2
+    row = get_row(board, y)
+    return 0 not in row 
 
 def pop_row(board,y):
     start_index = y * board.num_cols

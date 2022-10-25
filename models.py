@@ -425,7 +425,7 @@ def shift_left_fn(pos, steps):
     """TODO: your solution here"""
     # END QUESTION 7
     
-# Q8: validated_apply
+# Q8: validated_apply_non_rot
 def validated_apply_non_rot(pytromino, fn, validator):
     """ 
     Apply fn on all block coordinates of the pytromino, and check the
@@ -467,6 +467,11 @@ def validated_apply_non_rot(pytromino, fn, validator):
     >>> T1 = validated_apply_non_rot(T, right_shift_1, always_true)
     >>> T1 # Notice the change in center_pos below
     <Pytromino [(1, 0), (1, -1), (0, 0), (2, 0)], (146, 44, 140), Types.T, (1, 0)>
+    >>> # If you fail the test below, make sure you are validating the coordinates after manipulation!
+    >>> left_shift_10 = lambda pos: shift_left_fn(pos, 10)
+    >>> bound_5 = lambda pos: pos[0] >= -5 
+    >>> validated_apply_non_rot(test_pytro_T, left_shift_10, bound_5)
+    <Pytromino [(0, 0), (0, -1), (-1, 0), (1, 0)], (146, 44, 140), Types.T, (0, 0)>
     """
     new_pytro = copy.deepcopy(pytromino)
     # The line above creates a copy of the original pytromino object. 
@@ -475,6 +480,7 @@ def validated_apply_non_rot(pytromino, fn, validator):
     """TODO: your solution here"""
     # END QUESTION 8
     return new_pytro
+    
 
 # OBJECT FOR AUTOGRADER
 # ------------- IMPORTANT: don't edit below this line! ---------------
