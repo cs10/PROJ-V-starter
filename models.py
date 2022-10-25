@@ -297,7 +297,7 @@ def validated_apply_rot(pytromino, fn, validator):
 # ----------------------------- Required Methods ----------------------------- #
 # ---------------------------------------------------------------------------- #
 
-# Q4: rotate_block_90_cw
+# Q6: rotate_block_90_cw
 def rotate_block_90_cw(pytromino, pos):
     """
     Returns the new position after rotating pos 90 degree clockwise, using
@@ -326,16 +326,16 @@ def rotate_block_90_cw(pytromino, pos):
         # The new y value is: pos.x - center_rot.x + center_rot.y
         # You need to translate the above equations to code and
         # return the right solution.
-    # BEGIN QUESTION 4
+    # BEGIN QUESTION 6
     """TODO: your solution here"""
-    # END QUESTION 4
+    # END QUESTION 6
 
 # To rotate the block counter-clockwise, we can simply rotate it clockwise 
 # 90 degrees for 3 times!
 def rotate_block_90_ccw(pytromino, pos):
     return rotate_block_90_cw(pytromino, rotate_block_90_cw(pytromino, rotate_block_90_cw(pytromino, pos)))
 
-# Q5: filter_blocks_pos
+# Q7: filter_blocks_pos
 def filter_blocks_pos(pytromino, fn):
     """
     Use a function to filter out blocks positions.
@@ -357,11 +357,11 @@ def filter_blocks_pos(pytromino, fn):
     >>> filter_blocks_pos(test_pytro_S, g)
     [(1, -1)]
     """
-    # BEGIN QUESTION 5
+    # BEGIN QUESTION 7
     """TODO: your solution here"""
-    # END QUESTION 5
+    # END QUESTION 7
 
-# Q6: shift_down_fn
+# Q8: shift_down_fn
 def shift_down_fn(pos, steps):
     """
     Given a position as a tuple, return a new position that's shifted 
@@ -389,11 +389,11 @@ def shift_down_fn(pos, steps):
     >>> shift_down_fn((3, 3), -5)
     (3, 8)
     """
-    # BEGIN QUESTION 6
+    # BEGIN QUESTION 8
     """TODO: your solution here"""
-    # END QUESTION 6
+    # END QUESTION 8
 
-# Q7: shift_left_fn
+# Q9: shift_left_fn
 def shift_left_fn(pos, steps):
     """
     Given a position as a tuple, return a new position that's shifted 
@@ -421,11 +421,11 @@ def shift_left_fn(pos, steps):
     >>> shift_left_fn((3, 3), -5)
     (8, 3)
     """
-    # BEGIN QUESTION 7
+    # BEGIN QUESTION 9
     """TODO: your solution here"""
-    # END QUESTION 7
+    # END QUESTION 9
     
-# Q8: validated_apply_non_rot
+# Q10: validated_apply_non_rot
 def validated_apply_non_rot(pytromino, fn, validator):
     """ 
     Apply fn on all block coordinates of the pytromino, and check the
@@ -476,9 +476,9 @@ def validated_apply_non_rot(pytromino, fn, validator):
     new_pytro = copy.deepcopy(pytromino)
     # The line above creates a copy of the original pytromino object. 
     # Do any manipulation using new_pytro. DO NOT modify pytromino.
-    # BEGIN QUESTION 8
+    # BEGIN QUESTION 10
     """TODO: your solution here"""
-    # END QUESTION 8
+    # END QUESTION 10
     return new_pytro
     
 

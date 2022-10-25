@@ -14,12 +14,14 @@ try:
         'Q1': [get_board_item],
         'Q2': [set_board_item],
         'Q3': [valid_coordinate],
-        'Board': [get_board_item, set_board_item, valid_coordinate], 
-        'Q4': [rotate_block_90_cw],
-        'Q5': [filter_blocks_pos],
-        'Q6': [shift_down_fn],
-        'Q7': [shift_left_fn],
-        'Q8': [validated_apply_non_rot],
+        'Q4': [get_row],
+        'Q5': [check_row_full],
+        'Board': [get_board_item, set_board_item, valid_coordinate, get_row, check_row_full], 
+        'Q6': [rotate_block_90_cw],
+        'Q7': [filter_blocks_pos],
+        'Q8': [shift_down_fn],
+        'Q9': [shift_left_fn],
+        'Q10': [validated_apply_non_rot],
         'Pytromino': [rotate_block_90_cw, filter_blocks_pos, shift_down_fn, shift_left_fn, validated_apply_non_rot]
     }
     from doctest import run_docstring_examples

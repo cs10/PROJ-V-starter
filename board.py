@@ -100,6 +100,15 @@ class Board:
         s += '=' * (self.num_cols * 2 - 1)
         return s
 
+
+def pop_row(board,y):
+    start_index = y * board.num_cols
+    before = board.grid[0:start_index]
+    after = board.grid[start_index + board.num_cols:]
+    new_zero = [0 for _ in range(board.num_cols)]
+    new_grid = before + after + new_zero
+    board.update_grid(new_grid)
+
 # ---------------------------------------------------------------------------- #
 # --------------------------------- Required --------------------------------- #
 # ---------------------------------------------------------------------------- #
@@ -212,6 +221,7 @@ def valid_coordinate(board, coordinate):
     """TODO: your solution here"""
     # END QUESTION 3
 
+# Q4: get_row
 def get_row(board, y):
     """
     Get a row of items at row y.
@@ -234,11 +244,17 @@ def get_row(board, y):
     [1, 0]
     >>> get_row(board, 1)
     [2, 4]
+    >>> get_row(test_board_1, 1)
+    [3, 0, 6]
+    >>> get_row(test_board_2, 0)
+    [9, 2, 4, 1]
     """
-    assert 0 <= y < board.num_rows, f'Invalid y: {y}'
-    start_index = y * board.num_cols
-    return board.grid[start_index : start_index + board.num_cols]
+    assert 0 <= y < board.num_rows, f'Invalid y: {y}' # validating the row number
+    # BEGIN QUESTION 4
+    """TODO: your solution here"""
+    # END QUESTION 4
 
+# Q5: check_row_full
 def check_row_full(board, y):
     """
     Check if a row is full, such that it all of its grids contain a non-zero value.
@@ -255,24 +271,20 @@ def check_row_full(board, y):
     -------
         type: boolean
         brief: True if the row at index y is full, False otherwise. 
-    
         
     >>> board = Board(2, 2, grid=[1, 0, 2, 4])
     >>> check_row_full(board, 0)
     False
     >>> check_row_full(board, 1)
     True
+    >>> check_row_full(test_board_2, 0)
+    True
+    >>> check_row_full(test_board_1, 1)
+    False
     """
-    row = get_row(board, y)
-    return 0 not in row 
-
-def pop_row(board,y):
-    start_index = y * board.num_cols
-    before = board.grid[0:start_index]
-    after = board.grid[start_index + board.num_cols:]
-    new_zero = [0 for _ in range(board.num_cols)]
-    new_grid = before + after + new_zero
-    board.update_grid(new_grid)
+    # BEGIN QUESTION 5
+    """TODO: your solution here"""
+    # END QUESTION 5
     
 # OBJECT FOR AUTOGRADER
 # ------------- IMPORTANT: don't edit below this line! ---------------
